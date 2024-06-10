@@ -12,17 +12,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
-        email,
-        password,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/auth/register`,
+        {
+          email,
+          password,
+        }
+      );
       alert("Registration successful");
       window.location.href = "/login";
     } catch (err) {
       if (err.response && err.response.data && err.response.data.msg) {
         alert(err.response.data.msg);
       } else {
-        alert(err.response.data.errors.map(error => error.msg).join('\n'));
+        alert(err.response.data.errors.map((error) => error.msg).join("\n"));
       }
     }
   };
